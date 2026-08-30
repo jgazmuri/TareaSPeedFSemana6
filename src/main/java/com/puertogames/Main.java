@@ -1,17 +1,44 @@
 package com.puertogames;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    static void main() {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        IO.println(String.format("Hello and welcome!"));
+import reparto.ControladorDeEnvios;
+import reparto.PedidoComida;
+import reparto.PedidoEncomienda;
+import reparto.PedidoExpress;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            IO.println("i = " + i);
-        }
+public class Main {
+
+    public static void main(String[] args) {
+
+
+        PedidoComida pedido1 = new PedidoComida(1, "Ana Torres", "Av. Siempre Viva 123", true);
+        PedidoEncomienda pedido2 = new PedidoEncomienda(2, "Luis Rojas", "Calle Falsa 456", 15.0);
+        PedidoExpress pedido3 = new PedidoExpress(3, "Marta Diaz", "Pasaje Central 789", 4.0);
+        PedidoComida pedido4 = new PedidoComida(4, "Pedro Soto", "Los Aromos 321", false);
+
+        pedido1.asignarRepartidor();
+
+        pedido2.asignarRepartidor("Carlos Munoz");
+
+        System.out.println("=== Estado antes de reservar/despachar ===");
+        pedido1.mostrarResumen();
+        pedido2.mostrarResumen();
+        pedido3.mostrarResumen();
+
+
+        ControladorDeEnvios controlador = new ControladorDeEnvios();
+
+        controlador.reservarPedido(pedido4);
+        controlador.reservarPedido(pedido1);
+        controlador.reservarPedido(pedido2);
+        controlador.reservarPedido(pedido3);
+
+        System.out.println("\n=== Cancelando un pedido ===");
+        controlador.cancelar();
+
+        System.out.println("\n=== Despachando pedidos ===");
+        controlador.despachar();
+
+        System.out.println("\n=== Historial de entregas ===");
+        controlador.verHistorial();
     }
 }

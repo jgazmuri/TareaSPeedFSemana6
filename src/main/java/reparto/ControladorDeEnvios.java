@@ -8,7 +8,6 @@ public class ControladorDeEnvios implements Despachable, Cancelable, Rastreable 
     private List<Pedido> pedidosActivos = new ArrayList<>();
     private List<Pedido> historialEntregas = new ArrayList<>();
 
-    // "Reservar pedido": lo agregamos a la lista de activos.
     public void reservarPedido(Pedido pedido) {
         pedidosActivos.add(pedido);
         System.out.println("Pedido #" + pedido.getId() + " reservado con éxito.");
