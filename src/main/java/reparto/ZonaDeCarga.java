@@ -13,10 +13,11 @@ public class ZonaDeCarga {
     }
 
     public synchronized Pedido retirarPedido(){
-        if (pedidosPendientes.isEmpty()){
+        if (pedidosPendientes.isEmpty()) {
             return null;
+        }
             return pedidosPendientes.remove(0);
         }
     }
 
-}
+
