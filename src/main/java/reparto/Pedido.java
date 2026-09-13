@@ -1,46 +1,43 @@
 package reparto;
 
-public abstract class Pedido {
+public class Pedido {
 
-    protected int id;
-    protected String cliente;
-    protected String direccionEntrega;
-    protected String repartidorAsignado;
+   private int id;
+   private String direccionEntrega;
+   private EstadoPedido estado;
 
-    public Pedido(int id, String cliente, String direccionEntrega) {
+    public Pedido(int id, String direccionEntrega) {
         this.id = id;
-        this.cliente = cliente;
         this.direccionEntrega = direccionEntrega;
-        this.repartidorAsignado = "Sin asignar";
-    }
-
-    public abstract double calcularTiempoEntrega();
-
-    public void asignarRepartidor() {
-        this.repartidorAsignado = "Repartidor genérico";
-    }
-
-    public void asignarRepartidor(String nombre) {
-        this.repartidorAsignado = nombre;
-    }
-
-    public void mostrarResumen() {
-        System.out.println("----- Resumen del pedido #" + id + " -----");
-        System.out.println("Cliente: " + cliente);
-        System.out.println("Entrega en: " + direccionEntrega);
-        System.out.println("Repartidor: " + repartidorAsignado);
-        System.out.println("Tiempo estimado: " + calcularTiempoEntrega() + " minutos");
+        this.estado = EstadoPedido.PENDIENTE;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getCliente() {
-        return cliente;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getRepartidorAsignado() {
-        return repartidorAsignado;
+    public String getDireccionEntrega() {
+        return direccionEntrega;
+    }
+
+    public void setDireccionEntrega(String direccionEntrega) {
+        this.direccionEntrega = direccionEntrega;
+    }
+
+    public EstadoPedido getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String nuevoEstado) {
+        this.estado = EstadoPedido.valueOf(nuevoEstado);
+    }
+
+    @Override
+    public String toString() {
+        return "Pedido #" + id + " - " + direccionEntrega + " - Estado: " + estado;
     }
 }
