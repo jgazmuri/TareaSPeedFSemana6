@@ -1,48 +1,39 @@
 package reparto;
+import java.util.Random;
 
 import java.util.List;
 import java.util.Random;
 
 public class Repartidor implements Runnable {
+
     private String nombre;
-    private List<Pedido> pedidosAsignados;
-    private Random random = new Random();
+    private ZonaDeCarga zonaDeCarga;
 
-    public Repartidor(String nombre, List<Pedido> pedidosAsignados) {
+    public Repartidor(String nombre, ZonaDeCarga zonaDeCarga) {
         this.nombre = nombre;
-        this.pedidosAsignados = pedidosAsignados;
-    }
-
-    @Override
-    public void run() {
-        System.out.println(nombre + " inicia su recorrido con " + pedidosAsignados.size() + " pedido(s).");
-
-        for (Pedido pedido : pedidosAsignados) {
-            pedido.asignarRepartidor(nombre);
-            System.out.println(nombre + " va en camino al pedido #" + pedido.getId()
-                    + " (" + pedido.getCliente() + ")...");
-
-            try {
-                int tiempoSimuladoMs = 1000 + random.nextInt(3000); // entre 1 y 4 segundos
-                Thread.sleep(tiempoSimuladoMs);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                System.out.println(nombre + " fue interrumpido y detiene su recorrido.");
-                return;
-            }
-
-            System.out.println(nombre + " entregó el pedido #" + pedido.getId()
-                    + " a " + pedido.getCliente() + ".");
-        }
-
-        System.out.println(nombre + " terminó su recorrido.");
+        this.zonaDeCarga = zonaDeCarga;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public List<Pedido> getPedidosAsignados() {
-        return pedidosAsignados;
+    @Override
+    public void run() {
+        Pedido pedido;
+        while ((pedido = zonaDeCarga.retirarPedido()) !=null){
+            pedido.setEstado("EN_REPARTO");
+            System.out.println(nombre + " retiro el pedido #" + pedido.getId() + " y va en camino...");
+            try {
+                Thread.sleep(1000 + new Random().nextInt(3000));
+            }catch (InterruptedException e){
+                Thread.currentThread().interrupt();
+                return;
+            }
+            pedido.setEstado("EMTREGADO");
+            System.out.println(nombre + " entrego el pedido #" + pedido.getId() + ".");
+        }
+        System.out.println(nombre + " no tiene mas pedidos para retirar.");
     }
 }
+
