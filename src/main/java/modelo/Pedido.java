@@ -2,13 +2,15 @@ package modelo;
 
 public class Pedido {
 
-   private int id;
-   private String direccionEntrega;
-   private EstadoPedido estado;
+    private int id;
+    private String direccionEntrega;
+    private String tipo;
+    private EstadoPedido estado;
 
-    public Pedido(int id, String direccionEntrega) {
+    public Pedido(int id, String direccionEntrega, String tipo) {
         this.id = id;
         this.direccionEntrega = direccionEntrega;
+        this.tipo = tipo;
         this.estado = EstadoPedido.PENDIENTE;
     }
 
@@ -28,6 +30,14 @@ public class Pedido {
         this.direccionEntrega = direccionEntrega;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public EstadoPedido getEstado() {
         return estado;
     }
@@ -38,6 +48,11 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "Pedido #" + id + " - " + direccionEntrega + " - Estado: " + estado;
+        return "Pedido{" +
+                "id=" + id +
+                ", direccionEntrega='" + direccionEntrega + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", estado=" + estado +
+                '}';
     }
 }
