@@ -1,13 +1,12 @@
-package reparto;
-import java.util.Random;
+package modelo;
 
-import java.util.List;
 import java.util.Random;
 
 public class Repartidor implements Runnable {
 
     private String nombre;
     private ZonaDeCarga zonaDeCarga;
+    private Random random = new Random();
 
     public Repartidor(String nombre, ZonaDeCarga zonaDeCarga) {
         this.nombre = nombre;
@@ -26,7 +25,7 @@ public class Repartidor implements Runnable {
                 pedido.setEstado("EN_REPARTO");
                 System.out.println(nombre + " retiro el pedido #" + pedido.getId() + " y va en camino...");
 
-                Thread.sleep(1000 + new Random().nextInt(3000));
+                Thread.sleep(1000 + random.nextInt(3000));
 
                 pedido.setEstado("ENTREGADO");
                 System.out.println(nombre + " entrego el pedido #" + pedido.getId() + ".");
@@ -41,4 +40,3 @@ public class Repartidor implements Runnable {
         System.out.println(nombre + " no tiene mas pedidos para retirar.");
     }
 }
-

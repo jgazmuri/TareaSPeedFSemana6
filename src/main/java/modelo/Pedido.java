@@ -1,4 +1,4 @@
-package reparto;
+package modelo;
 
 public class Pedido {
 

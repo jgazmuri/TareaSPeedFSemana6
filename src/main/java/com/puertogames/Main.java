@@ -1,8 +1,8 @@
 package com.puertogames;
 
-import reparto.Pedido;
-import reparto.Repartidor;
-import reparto.ZonaDeCarga;
+import modelo.Pedido;
+import modelo.Repartidor;
+import modelo.ZonaDeCarga;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -10,6 +10,11 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
+        escenarioOriginal();
+    }
+
+    private static void escenarioOriginal() throws InterruptedException {
+        System.out.println("\n########## ESCENARIO 1: caso original (3 repartidores, 5 pedidos) ##########");
 
         ZonaDeCarga zonaDeCarga = new ZonaDeCarga();
         zonaDeCarga.agregarPedido(new Pedido(1, "Av. Siempre Viva 123"));

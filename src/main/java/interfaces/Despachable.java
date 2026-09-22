@@ -1,4 +1,4 @@
-package reparto;
+package interfaces;
 
 public interface Despachable {
     void despachar();
